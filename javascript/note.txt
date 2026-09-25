@@ -10,5 +10,6 @@ It has:
     A parser to analyze the code,
     A compiler to convert the code to machine code,
     And an interpreter to run the compiled code.
-like V8 in chrome, SpiderMonkey in firefox, JavaScriptCore in safari.
+
+Examples of Javascript engines are V8 in Google Chrome, SpiderMonkey in Mozilla FireFox, JavaScriptCore in Apple's Safari.
 
