@@ -13,3 +13,8 @@ It has:
 
 Examples of Javascript engines are V8 in Google Chrome, SpiderMonkey in Mozilla FireFox, JavaScriptCore in Apple's Safari.
 
+
+Semicolons are not mandatory.
+ECMAScript automatically inserts them (ASI, Automatic Semicolons Insertion)
+
+
