@@ -13,3 +13,16 @@ It has:
 
 Examples of Javascript engines are V8 in Google Chrome, SpiderMonkey in Mozilla FireFox, JavaScriptCore in Apple's Safari.
 
+As a rule, only the simplest scripts are put into HTML. More complex ones are separate js files.
+The benefit -> the browser will download it and store it in its cache. If other pages need it, they will use the cache.
+(the file is only downloaded once)
+
+"use strict" on top of the js scripts make them behave in modern way.
+"use strict" can be placed on top just on top of a function as well, enabling strict mode on that function only. (NOT very common)
+"use strict" MUST be the first line of a script.
+
+Some advanced language structures such as classes and modules automatically enable "use strict" mode.
+
+Constant values do not change. Some are known before execution, like hexadecimal values.
+Some are calculated in run-time, or during execution, but after initial assignment they never change.
+
