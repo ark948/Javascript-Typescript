@@ -41,3 +41,53 @@ var x = 3;
 })
 
 // Functions however are always hoisted and can be safely called from anywhere
+
+
+// let and const hoisting should not be relied on
+console.log(x); // ReferenceError
+const x = 3;
+
+console.log(y); // ReferenceError
+let y = 3;
+
+
+// window is the global variable
+// other global variables can be assigned to this as needed (like htmx and Alpine)
+console.log(window);
+
+
+// This is a constant
+const PI = 3.14;
+
+
+// Constant values cannot be re-assigned after initialization
+// However they can be mutated. The following is OK:
+const MY_OBJECT = { key: "value" };
+MY_OBJECT.key = "AnotherValue";
+
+// also ok:
+const myArray = ["HTML", "CSS"];
+myArray.push("JAVASCRIPT");
+console.log(myArray);  // ['HTML', 'CSS', 'JAVASCRIPT'];
+
+
+// the + operator converts numeric values to string:
+x = "The answer is " + 42; // "The answer is 42"
+y = 42 + " is the answer"; // "42 is the answer"
+z = "37" + 7; // "377"
+
+
+// To convert strings to numbers, we have:
+// parseInt(), parseFloat(), Number()
+
+// don't use parseInt() for decimals
+// also it's best to provide the radix parameter (indicates which numeric system to use)
+console.log(parseInt("101", 2)); // 5
+
+// An alternative method is retrieving a number from a sting is to use +
+// this implicitly performs number conversion:
+"1.1" + "1.1"; // '1.11.1'
+(+"1.1") + (+"1.1"); // 2.2
+// Note: the parentheses are added for clarity, not required.
+
+
