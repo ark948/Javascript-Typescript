@@ -13,6 +13,10 @@ It has:
 
 Examples of Javascript engines are V8 in Google Chrome, SpiderMonkey in Mozilla FireFox, JavaScriptCore in Apple's Safari.
 
+
+Semicolons are not mandatory.
+ECMAScript automatically inserts them (ASI, Automatic Semicolons Insertion)
+
 As a rule, only the simplest scripts are put into HTML. More complex ones are separate js files.
 The benefit -> the browser will download it and store it in its cache. If other pages need it, they will use the cache.
 (the file is only downloaded once)
