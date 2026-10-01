@@ -91,3 +91,117 @@ console.log(parseInt("101", 2)); // 5
 // Note: the parentheses are added for clarity, not required.
 
 
+// Primitives in Javascript: Booelan, null, undefined, Number, BigInt, String, Symbol
+// Other than primitives we have Object
+
+// functions are technically object
+
+// JS is dynamically typed (no need to specify data type)
+let answer = 42;
+// re-assigning is also ok:
+answer = "This is a message";
+
+// In JS, str + int = str
+
+
+// Literals -> fixed values that you provide in script
+
+// Array literals:
+const coffees = ["French Roast", "Colombian", "Kona"];
+
+// empty value in arrays (JS leaves an empty space for them)
+const fish = ["Lion", , "Angel"]; // length is 3
+console.log(fish);
+// [ 'Lion', <1 empty item>, 'Angel' ]
+
+// empty != undefined
+
+// for traversing, empty slots are skipped, but index-accessing fish[1] returns undefined
+// the last comma will be ignored
+const myList1 = ["home", , "school", ,]; // length is 4, mylist[1] and mylist[3] are missing
+
+
+// CODE CLARITY: always explicitly indicate absence of elements with either undefined or a comment
+const myList2 = ["home", /* empty */, "school", /* empty */, ];
+
+
+// Examples of Integer Literals:
+// 0, 117, 123456789123456789n             (decimal, base 10)
+// 015, 0001, 0o777777777777n              (octal, base 8)
+// 0x1123, 0x00111, 0x123456789ABCDEFn     (hexadecimal, "hex" or base 16)
+// 0b11, 0b0011, 0b11101001010101010101n   (binary, base 2)
+
+
+// Floating-point literals
+// 3.1415926
+// .123456789
+// 3.1E+12
+// .1e-23
+
+
+
+// Three examples of object literals
+const sales = "Toyota";
+
+function carTypes(name) {
+  return name === "Honda" ? name : `Sorry, we don't sell ${name}.`;
+}
+
+const car = { myCar: "Saturn", getCar: carTypes("Honda"), special: sales };
+
+console.log(car.myCar); // Saturn
+console.log(car.getCar); // Honda
+console.log(car.special); // Toyota
+
+
+car = { manyCars: { a: "Saab", b: "Jeep" }, 7: "Mazda" };
+console.log(car.manyCars.b); // Jeep
+console.log(car[7]); // Mazda
+
+
+// How to access valid and invalid object property names?
+const unusualPropertyNames = {
+    "": "An empty string",
+    "!": "Bang"
+};
+
+console.log(unusualPropertyNames.""); // ReferenceError
+console.log(unusualPropertyNames.!); // ReferenceError
+
+console.log(unusualPropertyNames[""]); // An empty string
+console.log(unusualPropertyNames["!"]); // Bang
+
+
+
+// I don't what this part supposed to be
+// Enhanced Object literals
+const thatProtoObj = {};
+const handler = {};
+const obj = {
+    __proto__: thatProtoObj,
+    handler, // short for 'handler: handler'
+    toString() {
+        return `d ${super.toString()}`; // super calls
+    },
+    ["prop_" + (() => 42)()]: 42, // computed (dynamic) property names
+};
+
+
+const re = /ab+c/; // RegExp literal
+
+
+// String literal
+// Will print the number of symbols in the string including whitespace.
+console.log("Joyo's cat".length); // In this case, 10.
+
+
+// NOTE: String literal != String object
+// but all String object's methods can be used on String litral value (JS automatically converts it to String object temporarily, calls the method, then discards the temporary String object)
+
+
+// Template literals (done by back-tick) aka String interpolation aka syntactic sugar
+const name = "Lev",
+  time = "today";
+`Hello ${name}, how are you ${time}?`;
+
+
