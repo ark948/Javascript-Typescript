@@ -73,7 +73,7 @@ for (let i = 0; i < colors.length; i++) {
 // If you know that none of the elements in your array evaluate to false in a boolean context—if your array consists only of DOM nodes, for example—you can use a more efficient idiom:
 const divs = document.getElementsByTagName("div");
 for (let i = 0, div; (div = divs[i]); i++) {
-  /* Process div in some way */
+    /* Process div in some way */
     // do something with divs
     console.log(div);
 }
@@ -193,7 +193,7 @@ console.log(a.lastIndexOf("z")); // -1
 // forEach can take a callback
 a = ["a", "b", "c"];
 a.forEach((element) => {
-  console.log(element);
+    console.log(element); // the callback that executes on every element
 });
 // Logs:
 // a
@@ -202,3 +202,203 @@ a.forEach((element) => {
 
 
 
+// map() returns a new array, and executes a callback on every item
+const a1 = ["a", "b", "c"];
+const a2 = a1.map((item) => item.toUpperCase());
+console.log(a2); // ['A', 'B', 'C']
+
+
+// flatMap() method runs map() followed by a flat() of depth 1
+a1 = ["a", "b", "c"];
+a2 = a1.flatMap((item) => [item.toUpperCase(), item.toLowerCase()]);
+console.log(a2); // ['A', 'a', 'B', 'b', 'C', 'c']
+
+
+// The find() method returns the first item for which callback returned true
+a1 = ["a", 10, "b", 20, "c", 30];
+const i = a1.find((item) => typeof item === "number");
+console.log(i); // 10
+
+
+// findlast() is the same, but returns the last item for which callback returns true, here 30
+
+
+// The findIndex() method returns the index of the first item for which callback returned true.
+a1 = ["a", 10, "b", 20, "c", 30];
+i = a1.findIndex((item) => typeof item === "number");
+console.log(i); // 1
+
+
+// findLastIndex() returns the last index of the item that callback is true for, here 5
+
+
+// The every() method returns true if callback returns true for every item in the array.
+function isNumber(value) {
+    return typeof value === "number";
+}
+a1 = [1, 2, 3];
+console.log(a1.every(isNumber)); // true
+a2 = [1, "2", 3];
+console.log(a2.every(isNumber)); // false
+
+
+// The some() method returns true if callback returns true for at least one item in the array.
+function isNumber(value) {
+    return typeof value === "number";
+}
+a1 = [1, 2, 3];
+console.log(a1.some(isNumber)); // true
+a2 = [1, "2", 3];
+console.log(a2.some(isNumber)); // true
+const a3 = ["1", "2", "3"];
+console.log(a3.some(isNumber)); // false
+
+
+// The reduce() method applies callback(accumulator, currentValue, currentIndex, array) for each value in the array for the purpose of reducing the list of items down to a single value. 
+a = [10, 20, 30];
+const total = a.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0,
+);
+console.log(total); // 60
+
+// the reduceRight() is the same, but works from the last element
+
+
+
+// Array transformations
+
+// we can transform back and forth between arrays and other data structures
+
+// example we have this:
+const inventory = [
+    { name: "asparagus", type: "vegetables" },
+    { name: "bananas", type: "fruit" },
+    { name: "goat", type: "meat" },
+    { name: "cherries", type: "fruit" },
+    { name: "fish", type: "meat" },
+];
+
+
+const result = Object.groupBy(inventory, ({ type }) => type);
+console.log(result);
+// Logs
+// {
+//   vegetables: [{ name: 'asparagus', type: 'vegetables' }],
+//   fruit: [
+//     { name: 'bananas', type: 'fruit' },
+//     { name: 'cherries', type: 'fruit' }
+//   ],
+//   meat: [
+//     { name: 'goat', type: 'meat' },
+//     { name: 'fish', type: 'meat' }
+//   ]
+// }
+
+
+// NOTE: the returned object references the same elements as the original array
+
+
+// Map.groupBy() is same, but it groups to a map object
+
+
+// Sparse arrays
+// arrays with empty slots
+
+// Array constructor:
+a = Array(5); // [ <5 empty items> ]
+
+// Consecutive commas in array literal:
+const b = [1, 2, , , 5]; // [ 1, 2, <2 empty items>, 5 ]
+
+// Directly setting a slot with index greater than array.length:
+const c = [1, 2];
+c[4] = 5; // [ 1, 2, <2 empty items>, 5 ]
+
+// Elongating an array by directly setting .length:
+const d = [1, 2];
+d.length = 5; // [ 1, 2, <3 empty items> ]
+
+// Deleting an element:
+const e = [1, 2, 3, 4, 5];
+delete e[2]; // [ 1, 2, <1 empty item>, 4, 5 ]
+
+
+
+// NOTE : In some operations, empty slots behave as if they are filled with undefined
+
+const arr = [1, 2, , , 5]; // Create a sparse array
+
+// Indexed access
+console.log(arr[2]); // undefined
+
+// For...of
+for (const i of arr) {
+    console.log(i);
+}
+// Logs: 1 2 undefined undefined 5
+
+// Spreading
+const another = [...arr]; // "another" is [ 1, 2, undefined, undefined, 5 ]
+
+
+// But in others (most notably array iteration methods), empty slots are skipped.
+const mapped = arr.map((i) => i + 1); // [ 2, 3, <2 empty items>, 6 ]
+arr.forEach((i) => console.log(i)); // 1 2 5
+const filtered = arr.filter(() => true); // [ 1, 2, 5 ]
+const hasFalsy = arr.some((k) => !k); // false
+
+// Property enumeration
+const keys = Object.keys(arr); // [ '0', '1', '4' ]
+for (const key in arr) {
+    console.log(key);
+}
+// Logs: '0' '1' '4'
+// Spreading into an object uses property enumeration, not the array's iterator
+const objectSpread = { ...arr }; // { '0': 1, '1': 2, '4': 5 }
+
+
+
+// Multi-dimensional arrays
+// can be created by nesting arrays
+
+a = new Array(4);
+for (let i = 0; i < 4; i++) {
+    a[i] = new Array(4);
+    for (let j = 0; j < 4; j++) {
+        a[i][j] = `[${i}, ${j}]`;
+    }
+}
+/*
+Row 0: [0, 0] [0, 1] [0, 2] [0, 3]
+Row 1: [1, 0] [1, 1] [1, 2] [1, 3]
+Row 2: [2, 0] [2, 1] [2, 2] [2, 3]
+Row 3: [3, 0] [3, 1] [3, 2] [3, 3]
+*/
+
+
+// arrays can be used like objects to store related information
+const arr = [1, 2, 3];
+arr.property = "value";
+console.log(arr.property); // "value"
+
+
+// Some objects are array-like
+// they have some behaviors and metohds of arrays but not all of them
+// for example NodeList returned by document.getElementsByTagName()
+// or the arguments object inside body of a function has the length attribute but not array methods like forEach()
+
+
+// but you can call them indirectly using Function.prototype.call()
+function printArguments() {
+    Array.prototype.forEach.call(arguments, (item) => {
+        console.log(item);
+    });
+}
+
+
+
+// Array prototype methods can be used on strings as well, since they provide sequential access to their characters in a similar way to arrays:
+Array.prototype.forEach.call("a string", (chr) => {
+    console.log(chr);
+});
