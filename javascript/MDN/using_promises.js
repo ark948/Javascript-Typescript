@@ -176,3 +176,24 @@ Promise.all([func1(), func2(), func3()]).then(([result1, result2, result3]) => {
 });
 
 
+// Cancellation
+// There is no first-class protocol to cancel a promise
+// but AbortController can be used
+
+// old callback API
+// a promise can be created using its constructor
+// older apis use setTimeout
+
+setTimeout(() => saySomething("10 seconds has passed"), 10 * 100);
+
+// DO NOT mix old style callbacks and promises
+
+// we can wrap setTimeout in a promise
+
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+wait(10 * 1000)
+    .then(() => saySomething("10 seconds"))
+    .catch(failureCallback);
+
+
