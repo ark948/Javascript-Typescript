@@ -112,3 +112,67 @@ async function listOfIngredients() {
 }
 
 
+// Nesting
+// a control structure to limit the scope of catch statements
+// this gives us a higher precision in error recovery
+doSomethingCritical()
+    .then((result) =>
+        doSomethingOptional(result)
+            .then((optionalResult) => doSomethingExtraNice(optionalResult))
+            .catch((e) => { }),
+    ) // Ignore if optional stuff fails; proceed.
+    .then(() => moreCriticalStuff())
+    .catch((e) => console.error(`Critical failure: ${e.message}`));
+
+// same code, async/await style
+async function main() {
+    try {
+        const result = await doSomethingCritical();
+        try {
+            const optionalResult = await doSomethingOptional(result);
+            await doSomethingExtraNice(optionalResult);
+        } catch (e) {
+            // Ignore failures in optional steps and proceed.
+        }
+        await moreCriticalStuff();
+    } catch (e) {
+        console.error(`Critical failure: ${e.message}`);
+    }
+}
+
+// Apply nesting only for complicated code
+
+
+// it is possible to do chaining after a failure
+doSomething()
+    .then(() => {
+        throw new Error("Something failed");
+        console.log("Do this");
+    })
+    .catch(() => {
+        console.error("Do that");
+    })
+    .then(() => {
+        console.log("Do this, no matter what happened before");
+    });
+
+
+// if a promise is rejected and not handled, some events will be sent to the global scope
+// unhandledrejection
+// rejectionhandled
+
+
+// also the same with Node.js, but event names have slight differences
+
+
+// Composition
+// Handling async operations concurrently
+
+// composition tools:
+// Promise.all(), Promise.allSettled(), Promise.any(), and Promise.race().
+
+Promise.all([func1(), func2(), func3()]).then(([result1, result2, result3]) => {
+    // use result1, result2 and result3
+});
+
+
