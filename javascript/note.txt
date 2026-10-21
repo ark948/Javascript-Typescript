@@ -31,3 +31,4 @@ Constant values do not change. Some are known before execution, like hexadecimal
 Some are calculated in run-time, or during execution, but after initial assignment they never change.
 
 
+about Streams and Resource Management, couldn't find much about it in javascript.info
