@@ -25,3 +25,22 @@ console.log(price.format(5.259)); // $5.26
 const locale1 = new Intl.Locale("en-US");
 price = new Intl.NumberFormat(locale1);
 
+
+// How to figure out which locale to use?
+// what does the user prefer?
+// browsers epxose user's language preferences through navigator.language property
+// it's an array of language identifiers
+
+const numberFormatter = new Intl.NumberFormat(navigator.languages);
+console.log(numberFormatter.format(1234567.89))
+
+const numberFormatter2 = new Intl.NumberFormat([]);
+
+// sometimes the website is offered in more than one language and user can choose this site-wide
+const userSettings = {
+    locale: "en-US",
+    colorMode: "dark",
+};
+
+numberFormatter = new Intl.NumberFormat(userSettings.locale);
+
