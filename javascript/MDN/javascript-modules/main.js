@@ -31,3 +31,13 @@ if (HTMLScriptElement.supports?.("importmap")) {
     console.log("Browser supports import maps.");
 }
 
+
+// Loading non-javascript resources
+// JSON can be imported as Javascript objects and CSS can be imported as CSSStyleSheet
+// You MUST explicitly declare what kind of resource you're importing in this case
+import colors from "./modules/colors.json" with { type: "json" };
+import styles from "./modules/styles.css" with { type: "css" };
+
+// Now we can access the values (and perhaps validate them before actually using them)
+console.log(colors.map((color) => color.value));
+document.adoptedStyleSheets = [styles];
