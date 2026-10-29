@@ -1,7 +1,5 @@
 // Javascript has flexibility for functions
 
-const { cache } = require("react");
-
 // they can be passed around, used as objects, and calls between them can be forwarded and they can be decorated
 
 // example, we have a CPU-heavy function
