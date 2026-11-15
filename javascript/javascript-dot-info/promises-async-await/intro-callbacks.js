@@ -65,4 +65,6 @@ loadScript('/my/script.js', function (error, script) {
 
 // nesting callbacks like this will cause pyramid of doom (aka callback hell)
 // very difficult to manage
+// promises were introduced to fix this problem
+
 
